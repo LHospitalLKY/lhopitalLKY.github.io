@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
@@ -31,10 +31,10 @@
 
   
 
-<meta name="generator" content="Hexo 4.2.0"></head>
+<meta name="generator" content="Hexo 4.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
 <body>
-  <div id="container" q-class="show:isCtnShow">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
     <div class="left-col" q-class="show:isShow">
       
@@ -206,7 +206,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SLAM VINS 实验笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SLAM</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VINS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实验记录</a>
         		</li>
       		
 		</ul>
@@ -288,7 +296,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SLAM VINS 实验笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SLAM</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VINS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实验笔记</a>
         		</li>
       		
 		</ul>
@@ -353,12 +369,12 @@
 <p>如图所示：</p>
 <p><img src="/lhopitalLKY.github.io/2020/05/18/%E5%9F%BA%E4%BA%8EPlucker%E8%A1%A8%E7%A4%BA%E7%9A%84%E7%BA%BF%E7%89%B9%E5%BE%81%E4%B8%89%E8%A7%92%E5%8C%96/Plücker_line_coordinate_geometry.png" alt="a"></p>
 <p>设空间直线为$l$，在直线上两个不同点$X, Y$，记：</p>
-<script type="math/tex; mode=display">\bm{d} = Y - X</script><script type="math/tex; mode=display">\bm{m} = X \times Y</script><p>则直线$l$的普吕克表示为：</p>
+<script type="math/tex; mode=display">\mathbf{d} = Y - X</script><script type="math/tex; mode=display">\mathbf{m} = X \times Y</script><p>则直线$l$的普吕克表示为：</p>
 <script type="math/tex; mode=display">L = \begin{bmatrix}
-        \bm{d} \\
-        \bm{m}
+        \mathbf{d} \\
+        \mathbf{m}
       \end{bmatrix} \in \mathbb{P}^5 \subsetneqq \mathbb{R}^6</script><p>我们可以看出，向量$\bm{d}$为直线的方向向量，向量$\bm{m}$平面$XCY$的法向量。因此，普吕克坐标表示的直线隐含了约束条件：</p>
-<script type="math/tex; mode=display">\bm{d}^T\bm{m} = 0</script>
+<script type="math/tex; mode=display">\mathbf{d}^T\mathbf{m} = 0</script>
       
 
       
@@ -371,7 +387,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SLAM VINS 实验笔记</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SLAM</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VINS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实验笔记</a>
         		</li>
       		
 		</ul>
@@ -601,11 +625,23 @@ MathJax.Hub.Queue(function() {
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SLAM VINS 实验笔记</a>
+                <a href="javascript:void(0)" class="js-tag color5">SLAM VINS</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">SLAM VINS</a>
+                <a href="javascript:void(0)" class="js-tag color5">SLAM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">VINS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">实验笔记</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">实验记录</a>
               </li>
             
             <div class="clearfix"></div>
@@ -761,6 +797,6 @@ MathJax.Hub.Queue(function() {
     </div>
 
 </div>
-  </div>
+  </div><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 </body>
 </html>

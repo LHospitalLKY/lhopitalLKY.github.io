@@ -151,6 +151,170 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-PL-VIO实验记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">PL-VIO实验记录</a>
+    </h1>
+  
+
+        
+        <a href="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/" class="archive-article-date">
+  	<time datetime="2020-05-29T03:17:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-PL-VIO介绍"><a href="#1-PL-VIO介绍" class="headerlink" title="1. PL VIO介绍"></a>1. PL VIO介绍</h2><p>PL VIO是一个基于点线结合特征的紧耦合的单目视觉-惯性里程计，由自动化所贺一加博士发表在2019 IROS。(有两篇文章，一篇是在2019IROS，另一篇是期刊Sensor，二者的不太一样，IROS的文章有仿真实验，数据集实验只列了个表，Sensor期刊上的文章没有仿真实验，主要是在数据集上的实验，有比较多的图表)。</p>
+<p>PL-VIO已经开源，源码地址：<a href="https://github.com/HeYijia/PL-VIO" target="_blank" rel="noopener">https://github.com/HeYijia/PL-VIO</a></p>
+<h3 id="1-1-PL-VIO中的实验介绍"><a href="#1-1-PL-VIO中的实验介绍" class="headerlink" title="1.1 PL VIO中的实验介绍"></a>1.1 PL VIO中的实验介绍</h3><h4 id="1-1-1-仿真实验"><a href="#1-1-1-仿真实验" class="headerlink" title="1.1.1 仿真实验"></a>1.1.1 仿真实验</h4><p>仿真实验中，虚拟了若干条空间直线，按照某个函数来给定相机的位姿，设置一些观测噪，来验证算法的位姿估计精度、建图精度。论文的仿真实验如下所示：</p>
+<p><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/仿真实验.png" alt="a"></p>
+<p>Fig2是三角化仿真实验，给定了三种类型的相机运动轨迹，来计算三角化的误差，误差如Fig2的右侧所示。(三角化就是上周卡了很久的地方，这周又试了试，还是没弄好)(三角化可以用在双目相机上，这样不需要计算整个图的深度)。</p>
+<p>Fig3是模拟了一个完整的视觉SLAM过程，在这个虚拟过程中使用线特征来进行位姿估计。右侧的是旋转误差与平移误差。</p>
+<h4 id="1-1-2-公开数据集实验"><a href="#1-1-2-公开数据集实验" class="headerlink" title="1.1.2 公开数据集实验"></a>1.1.2 公开数据集实验</h4><p>作者在EuRoC MAV数据集、PennCOSYVIO数据集上进行了实验。EuRoC数据集上的实验作者对比了ROVIO、OKVIS-Mono、VINS-Mono与PL-VIO在数据集上的旋转、平移的均方误差，给出了轨迹、建好的地图。</p>
+<p><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/MH_05线特征建图效果.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/EuRoC误差汇总.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/轨迹对比.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/EuRoC运行时间.png" alt="a"></p>
+<p>OennCOSYVIO数据集实验是EuRoC数据集实验的阉割，之对比了VINS-Mono与PL-VIO的APE与RPE，以及前后端的运算时间。</p>
+<p><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/PennAPERPE.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/Penny_time.png" alt="a"></p>
+<p>基于论文内容，可以发现，PL-VIO使用了点线特征相结合的方式来进行SLAM，在作者对比的数据序列上，PL-VIO的精度优于VIN-Mono等算法(EuRoC数据的MH_01序列没有被作者选入对比列表中)，但是在运行速度上，PL-VIO的运行速度毫无优势可言。<strong>事实上，PL-VIO的运行速度是一个致命的缺陷</strong>。</p>
+<h2 id="2-实验记录"><a href="#2-实验记录" class="headerlink" title="2. 实验记录"></a>2. 实验记录</h2><p>本周分别使用EuRoC MH_05数据序列和仿真数据进行了实验，录制了两个视频。</p>
+<p>经过实验发现，PL-VIO在本机上完全达不到实时效果，仿真数据上输出的位姿频率仅有不到0.7，在EuRoC上则不到0.3。</p>
+<h2 id="3-改进点"><a href="#3-改进点" class="headerlink" title="3. 改进点"></a>3. 改进点</h2><p>经过实验之后，发现有几个可以改进的点：</p>
+<ol>
+<li>提升后端优化的运行速度(暂时没有什么思路，也许可以尝试使用PL-SLAM中的线特征后端)</li>
+<li>提升线特征提取匹配速度或精度(可以试试使用EDLines算法？)</li>
+</ol>
+<h2 id="4-初步毕业论文工作内容"><a href="#4-初步毕业论文工作内容" class="headerlink" title="4. 初步毕业论文工作内容"></a>4. 初步毕业论文工作内容</h2><p>基于PL-VIO，初步定一下论文的具体内容：</p>
+<p>第一章 研究背景<br>第二章 国内外研究现状<br>第三章 相关背景知识</p>
+<ul>
+<li>3.2 点特征</li>
+<li>3.3 线特征</li>
+<li>3.4 李群与李代数</li>
+<li>3.5 SLAM基本原理与模型</li>
+</ul>
+<p>第四章 相机位姿估计</p>
+<ul>
+<li>4.1 基于点特征的相机位姿估计<ul>
+<li>4.1.1 点特征的提取与匹配</li>
+<li>4.1.2 基于线特征的相机位姿约束</li>
+</ul>
+</li>
+<li>4.1 基于线特征的相机位姿估计<ul>
+<li>4.2.1 线特征的表示</li>
+<li>4.2.2 线特征的提取与匹配</li>
+<li>4.2.3 基于线特征的相机位姿约束</li>
+</ul>
+</li>
+<li>4.3 点线结合的视觉SLAM位姿优化模型</li>
+</ul>
+<p>第五章 点-线结合视觉SLAM(传感器方案多做几个测试确定一下，目前三种方案，结合深度学习判断深度的单目(姚立群和郭犇用这个改了一下vins)、双目、RGB-D)</p>
+<ul>
+<li>5.1 系统框架</li>
+<li>5.2 视觉特征跟踪模块<ul>
+<li>点线特征提取与匹配</li>
+<li>关键帧判断</li>
+</ul>
+</li>
+<li>5.3 初始化模块</li>
+<li>5.4 基于滑动窗口的后端优化模块</li>
+</ul>
+<p>第六章 实验与分析</p>
+<ul>
+<li>6.1 仿真实验<ul>
+<li>实验描述</li>
+<li>实验结果与分析(轨迹精度、线特征重建精度)</li>
+</ul>
+</li>
+<li>6.2 公开数据集实验<ul>
+<li>6.2.1 EuRoC MAV数据集(APE、RPE、模块运行时间)<ul>
+<li>数据集介绍</li>
+<li>实验描述(包含对比)</li>
+<li>实验分析</li>
+</ul>
+</li>
+<li>6.2.2 TUM-VI数据集(APE、RPE、模块运行时间)<ul>
+<li>同上</li>
+</ul>
+</li>
+<li>6.2.3 KITTI数据集(暂定，不知道要不要做这个数据集)<ul>
+<li>同上</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>6.3 真实环境中的实验<ul>
+<li>实验环境描述</li>
+<li>实验结果展示</li>
+</ul>
+</li>
+</ul>
+<p>第七章 总结与展望</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SLAM</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VINS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实验记录</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-线段直线交点实验" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -172,7 +336,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[toc]</p>
-<h2 id="1-图像直线交点计算"><a href="#1-图像直线交点计算" class="headerlink" title="1. 图像直线交点计算"></a>1. 图像直线交点计算</h2><h3 id="1-1-两条直线的交点"><a href="#1-1-两条直线的交点" class="headerlink" title="1.1 两条直线的交点"></a>1.1 两条直线的交点</h3><p>在平面中，两条不平行的直线必然存在一个交点。设两条直线的方程分别为$a_1 x + b_1 y + c_1 = 0$与$a_2 x + b_2 y + c_2 = 0$，根据解析几何理论，两条直线的交点通过求解以下一元二次方程组得到：</p>
+<h2 id="1-图像直线交点计算"><a href="#1-图像直线交点计算" class="headerlink" title="1. 图像直线交点计算"></a>1. 图像直线交点计算</h2><p>在平面中，两条不平行的直线必然存在一个交点。设两条直线的方程分别为$a_1 x + b_1 y + c_1 = 0$与$a_2 x + b_2 y + c_2 = 0$，根据解析几何理论，两条直线的交点通过求解以下一元二次方程组得到：</p>
 <script type="math/tex; mode=display">\begin{cases}
     a_1 x + b_1 y + c_1 = 0 \\
     a_1 x + b_2 y + c_2 = 0
@@ -192,7 +356,27 @@
 <p><img src="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/TableCorner.png" alt="a"></p>
 <p>这些位置通常在两条线特征的共同交点附近。因此，根据这个特征来进行筛选. </p>
 <p>给定两个<code>cv::KeyLine</code>类型的输入，根据一下流程来实现筛选：</p>
-<img src="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuTBGqbJGrRLJK7gnR_BJrgNUgPK-cNcfnGevG3BUK0T26obnGTIiM_XytNI8r9CTVH2vvxDQdi_UydpN_XVB9ptTjImnBpq78WrX0VLcfYaeOGW_sTdzSleMe6Q8jgVRrptTqFzaLz_v1dqZ4oK5BWKW05aQNL9KcXgBm-vddGrFTYz-iN05t150nfDTIvutxGnGWXi1rHi0qsRuVFLwe8h73OrG7u2v20Tjd_jysMuaxIyREf_sJmDfVpfxzfCTgz3KFvlJ07GwH5TAPd59V6vc7aGtoECm4GKRMmLVJxzu5y_WaFWGZo3NO0z_7nU8EWo_xf_oTFOyY3_GLBZcfMJcfIiK5EKdfnONnoe0um-i83MdE5K1eJGdDQq4f3mj4IWED_7fdgQdEtR03Kq5cfN6XTTeXB6w18t3RGZO7Yuk1o03cEO0">
+<img src="http://www.plantuml.com/plantuml/svg/SoWkIImgAStDuTBGqbJGrRLJK7gnR_BJrgNUgPK-cNcfnGevG3BUK0T26obnGTIiM_XytNI8r9CTVH2vvxDQdi_UydpN_XVB9ptTjImnBpq78WrX0VLcfYaeOGW_sTdzSleMe6Q8jgVRrptTqFzaLz_v1dqZ4oK5BWKW05aQNL9KcXgBm-vddGrFTYz-iN05t150nfDTIvutxGnGWXi1rHi0qsRuVFLwe8h73OrG7u2v20Tjd_jysMuaxIyREf_sJmDfVpfxzfCTgz3KFvlJ07GwH5TAPd59V6vc7aGtoECm4GKRMmLVJxzu5y_WaFWGZo3NO0z_7nU8EWo_xf_oTFOyY3_GLBZcfMJcfIiK5EKdfnONnoe0um-i83MdE5K1eJGdDQq4f3mj4IWED_7fdgQdEtR03Kq5cfN6XTTeXB6w18t3RGZO7Yu780rCSW00">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line">(*) --&gt; &quot;输入KeyLines line_1, line_2&quot;</span><br><span class="line">--&gt; &quot;计算line_1与line_2的直线角度angle_1与angle_2&quot;</span><br><span class="line">if &quot;angle_1与angle_2之间的角度差小于π&#x2F;24&quot; </span><br><span class="line">    --&gt; [true] &quot;计算line_1与line_2所代表的直线的交点P&quot;</span><br><span class="line">    --&gt; &quot;计算P与line_1端点、line_2端点之间的距离&quot;</span><br><span class="line">    --&gt; &quot;选取P与四个端点之间的最小距离dist_min&quot;</span><br><span class="line">    if &quot;dist_min &lt;&#x3D; MIN_DIST_THRESHOLD&quot;</span><br><span class="line">        --&gt; [true] &quot;返回交点&quot;</span><br><span class="line">        --&gt; [Ending process] (*)</span><br><span class="line">    else </span><br><span class="line">        -left-&gt; [false] &quot;返回异常点&quot;</span><br><span class="line">    endif</span><br><span class="line">    --&gt; [Ending process] (*)</span><br><span class="line">else </span><br><span class="line">    --&gt; [false] &quot;返回异常点&quot;</span><br><span class="line">    --&gt; [Ending process] (*)</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure>
+<p>基于1.1中的两直线相交的程序，得到了如下结果：</p>
+<p><img src="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/Cross_Points_filter.png" alt="a"></p>
+<p>如图所示，经过过滤之后，能够找出桌角、电脑平面角、键盘角等直线交点。</p>
+<p>但是，上述的过滤算法仍然有着几个问题：</p>
+<ul>
+<li>如下图所示：<br><img src="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/多余交点.png" alt="a"><br>该位置提取出多条平行直线，上述算法得到的交点有多个冗余(未想出解决方案)</li>
+<li>如下图所示：<br><img src="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/同一条直线中间出现间断.png" alt="a"><br>在现实中明明是同一条直线，但是提取线特征时这条直线被提取成好几段线段，上述算法能够找到这些线段的交点，但是这个交点并不是桌角等有着客观意义的点(可以通过相交直线的夹角来判断进一步筛选)</li>
+<li>如下图所示：<br><img src="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/异面.png" alt="a"><br>只依靠平面图像无法分辨出空间直线相交与异面非平行的状态(考虑加入深度信息来判断)</li>
+<li>时间复杂度过高. 为了找出直线之间的交点，要将所有直线进行判断，时间复杂度是$O(n^2)$</li>
+</ul>
+<h2 id="2-交点匹配实验"><a href="#2-交点匹配实验" class="headerlink" title="2. 交点匹配实验"></a>2. 交点匹配实验</h2><p>分别进行了ORB点特征提取匹配、相邻两帧图像提取直线交点并计算其BRIEF描述子进行匹配、相邻两帧图像提取直线交点通过光流匹配，结果如下：</p>
+<p>ORB点特征匹配：<br><img src="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/ORBPoints_DescriptorBasedMatch.png" alt="a"></p>
+<p>相邻两帧图像提取直线交点并计算其BRIEF描述子进行匹配：<br><img src="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/CrossPoints_And_DescriptorBasedMatch.png" alt="a"></p>
+<p>相邻两帧图像提取直线交点通过光流匹配:<br><img src="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/CrossPoints_And_LKFLowBasedMatch.png" alt="a"></p>
+<p>ORB提取出的特征分布不均匀，都集中在桌子上的一堆障碍物，但是匹配比较准；<br>通过提取出的交点，根据BRIEF描述子进行匹配，点的分布比ORB点特征更均匀，但是存在比较明显的误匹配(交点的BRIEF描述子不显著，这可能是导致误匹配增多的原因)；<br>通过光流来匹配交点，尽管几乎每个交点都能在下一帧中找到对应点，但是这个对应点也有错的；</p>
+<p>后期计划：</p>
+<ol>
+<li>尝试一下结合深度来判定交点</li>
+</ol>
 
       
 

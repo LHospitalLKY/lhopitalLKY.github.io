@@ -184,12 +184,14 @@
 <p>基于论文内容，可以发现，PL-VIO使用了点线特征相结合的方式来进行SLAM，在作者对比的数据序列上，PL-VIO的精度优于VIN-Mono等算法(EuRoC数据的MH_01序列没有被作者选入对比列表中)，但是在运行速度上，PL-VIO的运行速度毫无优势可言。<strong>事实上，PL-VIO的运行速度是一个致命的缺陷</strong>。</p>
 <h2 id="2-实验记录"><a href="#2-实验记录" class="headerlink" title="2. 实验记录"></a>2. 实验记录</h2><p>本周分别使用EuRoC MH_05数据序列和仿真数据进行了实验，录制了两个视频。</p>
 <p>经过实验发现，PL-VIO在本机上完全达不到实时效果，仿真数据上输出的位姿频率仅有不到0.7，在EuRoC上则不到0.3。</p>
-<h2 id="3-改进点"><a href="#3-改进点" class="headerlink" title="3. 改进点"></a>3. 改进点</h2><p>经过实验之后，发现有几个可以改进的点：</p>
+<h2 id="3-评估工具"><a href="#3-评估工具" class="headerlink" title="3. 评估工具"></a>3. 评估工具</h2><p>V-SLAM/VIO的评估工具可以使用evo(GitHub: <a href="https://github.com/MichaelGrupp/evo" target="_blank" rel="noopener">https://github.com/MichaelGrupp/evo</a>).</p>
+<p><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_1.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_2.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_3.png" alt="a"></p>
+<h2 id="4-改进点"><a href="#4-改进点" class="headerlink" title="4. 改进点"></a>4. 改进点</h2><p>经过实验之后，发现有几个可以改进的点：</p>
 <ol>
 <li>提升后端优化的运行速度(暂时没有什么思路，也许可以尝试使用PL-SLAM中的线特征后端)</li>
 <li>提升线特征提取匹配速度或精度(可以试试使用EDLines算法？)</li>
 </ol>
-<h2 id="4-初步毕业论文工作内容"><a href="#4-初步毕业论文工作内容" class="headerlink" title="4. 初步毕业论文工作内容"></a>4. 初步毕业论文工作内容</h2><p>基于PL-VIO，初步定一下论文的具体内容：</p>
+<h2 id="5-初步毕业论文工作内容"><a href="#5-初步毕业论文工作内容" class="headerlink" title="5. 初步毕业论文工作内容"></a>5. 初步毕业论文工作内容</h2><p>基于PL-VIO，初步定一下论文的具体内容：</p>
 <p>第一章 研究背景<br>第二章 国内外研究现状<br>第三章 相关背景知识</p>
 <ul>
 <li>3.2 点特征</li>

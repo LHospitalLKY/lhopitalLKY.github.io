@@ -233,6 +233,7 @@
 <ol>
 <li>尝试一下结合深度来判定交点</li>
 </ol>
+<p>PL-VIO中直线特征跟踪的流程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">start</span><br><span class="line">:直方图均衡化;</span><br><span class="line">:设置first_img为false;</span><br><span class="line"></span><br><span class="line">if(forwframe是否为空?) then (是)</span><br><span class="line">    :设置forwframe与curframe为new FrameLines;</span><br><span class="line">    :设置forwframe与curframe为当前img;</span><br><span class="line">    :设置first_img为true;</span><br><span class="line">else (否)</span><br><span class="line">    :设置forwframe为new FrameLines;</span><br><span class="line">    :设置forwframe为当前img;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">:提取线特征;</span><br><span class="line">:筛选octave&#x3D;0, length&gt;&#x3D;30的线特征作为forwframe的keylsd;</span><br><span class="line">:设置forwframe中的keylsd的id为-1;</span><br><span class="line">:匹配forwframe与curframe的线特征;</span><br><span class="line">:筛选匹配(条件: 描述子的距离小于某个阈值且直线跑的不太远);</span><br><span class="line">:利用curframe来设置forwframe中被匹配到的线特征的id;</span><br><span class="line"></span><br><span class="line">repeat</span><br><span class="line">    if(forwframe -&gt; lineID[i] &#x3D;&#x3D; -1) then (是)</span><br><span class="line">        :设置forwframe -&gt; lineID[i]为allfreature_cnt++;</span><br><span class="line">        :将forwframe -&gt; keylsd[i]插入vecLine_new等队列中;</span><br><span class="line">    else (否)</span><br><span class="line">        :将forwframe -&gt; keylsd[i]插入vevLine_tracked等队列中;</span><br><span class="line">    endif</span><br><span class="line">    :i++;</span><br><span class="line">repeat while(i &lt; forwframe -&gt; keylsd.size())</span><br><span class="line"></span><br><span class="line">if(被追踪到的线特征小于50条) then (是)</span><br><span class="line">    :从vecLine_new中补充线特征到vecLine_tracked;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">:forwframe -&gt; keylsd &#x3D; vecLine_tracked;</span><br><span class="line">:forwframe -&gt; lineID &#x3D; lineID_tracked;</span><br><span class="line">:forwframe -&gt; lbd_descr &#x3D; DEscr_tracked;</span><br><span class="line">:将opencv格式的KeyLine转为自定义的Line结构,插入forwframe -&gt; vecLine中;</span><br><span class="line"></span><br><span class="line">:curframe &#x3D; forwframe;</span><br><span class="line"></span><br><span class="line">stop</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -520,6 +521,22 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">实验记录</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python-base</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">自动控制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">动态系统建模</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">电路</a>
               </li>
             
             <div class="clearfix"></div>

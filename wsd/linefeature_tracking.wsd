@@ -1,0 +1,46 @@
+@startuml
+
+start
+:直方图均衡化;
+:设置first_img为false;
+
+if(forwframe是否为空?) then (是)
+    :设置forwframe与curframe为new FrameLines;
+    :设置forwframe与curframe为当前img;
+    :设置first_img为true;
+else (否)
+    :设置forwframe为new FrameLines;
+    :设置forwframe为当前img;
+endif
+
+:提取线特征;
+:筛选octave=0, length>=30的线特征作为forwframe的keylsd;
+:设置forwframe中的keylsd的id为-1;
+:匹配forwframe与curframe的线特征;
+:筛选匹配(条件: 描述子的距离小于某个阈值且直线跑的不太远);
+:利用curframe来设置forwframe中被匹配到的线特征的id;
+
+repeat
+    if(forwframe -> lineID[i] == -1) then (是)
+        :设置forwframe -> lineID[i]为allfreature_cnt++;
+        :将forwframe -> keylsd[i]插入vecLine_new等队列中;
+    else (否)
+        :将forwframe -> keylsd[i]插入vevLine_tracked等队列中;
+    endif
+    :i++;
+repeat while(i < forwframe -> keylsd.size())
+
+if(被追踪到的线特征小于50条) then (是)
+    :从vecLine_new中补充线特征到vecLine_tracked;
+endif
+
+:forwframe -> keylsd = vecLine_tracked;
+:forwframe -> lineID = lineID_tracked;
+:forwframe -> lbd_descr = DEscr_tracked;
+:将opencv格式的KeyLine转为自定义的Line结构,插入forwframe -> vecLine中;
+
+:curframe = forwframe;
+
+stop
+
+@enduml

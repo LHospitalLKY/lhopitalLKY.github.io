@@ -6,32 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>PL-VIO实验记录 | </title>
+  <title>C++调用Python | </title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1. PL VIO介绍PL VIO是一个基于点线结合特征的紧耦合的单目视觉-惯性里程计，由自动化所贺一加博士发表在2019 IROS。(有两篇文章，一篇是在2019IROS，另一篇是期刊Sensor，二者的不太一样，IROS的文章有仿真实验，数据集实验只列了个表，Sensor期刊上的文章没有仿真实验，主要是在数据集上的实验，有比较多的图表)。 PL-VIO已经开源，源码地址：https:&#x2F;&#x2F;git">
+  <meta name="description" content="使用一段代码来说明如何使用Python.h来在C++程序中调用Python程序 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PL-VIO实验记录">
-<meta property="og:url" content="http://yoursite.com/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/index.html">
+<meta property="og:title" content="C++调用Python">
+<meta property="og:url" content="http://yoursite.com/2020/06/30/C-%E8%B0%83%E7%94%A8Python/index.html">
 <meta property="og:site_name">
-<meta property="og:description" content="1. PL VIO介绍PL VIO是一个基于点线结合特征的紧耦合的单目视觉-惯性里程计，由自动化所贺一加博士发表在2019 IROS。(有两篇文章，一篇是在2019IROS，另一篇是期刊Sensor，二者的不太一样，IROS的文章有仿真实验，数据集实验只列了个表，Sensor期刊上的文章没有仿真实验，主要是在数据集上的实验，有比较多的图表)。 PL-VIO已经开源，源码地址：https:&#x2F;&#x2F;git">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/MH_05%E7%BA%BF%E7%89%B9%E5%BE%81%E5%BB%BA%E5%9B%BE%E6%95%88%E6%9E%9C.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/EuRoC%E8%AF%AF%E5%B7%AE%E6%B1%87%E6%80%BB.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/%E8%BD%A8%E8%BF%B9%E5%AF%B9%E6%AF%94.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/EuRoC%E8%BF%90%E8%A1%8C%E6%97%B6%E9%97%B4.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/PennAPERPE.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/Penny_time.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_1.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_2.png">
-<meta property="og:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_3.png">
-<meta property="article:published_time" content="2020-05-29T03:17:46.000Z">
-<meta property="article:modified_time" content="2020-05-29T03:17:46.000Z">
+<meta property="og:description" content="使用一段代码来说明如何使用Python.h来在C++程序中调用Python程序 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980818283848">
+<meta property="article:published_time" content="2020-06-30T02:46:24.000Z">
+<meta property="article:modified_time" content="2020-06-30T02:46:24.000Z">
 <meta property="article:author" content="Lei Kaiyu">
-<meta property="article:tag" content="SLAM">
-<meta property="article:tag" content="VINS">
-<meta property="article:tag" content="实验记录">
+<meta property="article:tag" content="python-base">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/%E4%BB%BF%E7%9C%9F%E5%AE%9E%E9%AA%8C.png">
   
     <link rel="alternative" href="/atom.xml" title="" type="application/atom+xml">
   
@@ -167,111 +154,30 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-PL-VIO实验记录" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-C-调用Python" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      PL-VIO实验记录
+      C++调用Python
     </h1>
   
 
         
-        <a href="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/" class="archive-article-date">
-  	<time datetime="2020-05-29T03:17:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-05-29</time>
+        <a href="/lhopitalLKY.github.io/2020/06/30/C-%E8%B0%83%E7%94%A8Python/" class="archive-article-date">
+  	<time datetime="2020-06-30T02:46:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-30</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="1-PL-VIO介绍"><a href="#1-PL-VIO介绍" class="headerlink" title="1. PL VIO介绍"></a>1. PL VIO介绍</h2><p>PL VIO是一个基于点线结合特征的紧耦合的单目视觉-惯性里程计，由自动化所贺一加博士发表在2019 IROS。(有两篇文章，一篇是在2019IROS，另一篇是期刊Sensor，二者的不太一样，IROS的文章有仿真实验，数据集实验只列了个表，Sensor期刊上的文章没有仿真实验，主要是在数据集上的实验，有比较多的图表)。</p>
-<p>PL-VIO已经开源，源码地址：<a href="https://github.com/HeYijia/PL-VIO" target="_blank" rel="noopener">https://github.com/HeYijia/PL-VIO</a></p>
-<h3 id="1-1-PL-VIO中的实验介绍"><a href="#1-1-PL-VIO中的实验介绍" class="headerlink" title="1.1 PL VIO中的实验介绍"></a>1.1 PL VIO中的实验介绍</h3><h4 id="1-1-1-仿真实验"><a href="#1-1-1-仿真实验" class="headerlink" title="1.1.1 仿真实验"></a>1.1.1 仿真实验</h4><p>仿真实验中，虚拟了若干条空间直线，按照某个函数来给定相机的位姿，设置一些观测噪，来验证算法的位姿估计精度、建图精度。论文的仿真实验如下所示：</p>
-<p><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/仿真实验.png" alt="a"></p>
-<p>Fig2是三角化仿真实验，给定了三种类型的相机运动轨迹，来计算三角化的误差，误差如Fig2的右侧所示。(三角化就是上周卡了很久的地方，这周又试了试，还是没弄好)(三角化可以用在双目相机上，这样不需要计算整个图的深度)。</p>
-<p>Fig3是模拟了一个完整的视觉SLAM过程，在这个虚拟过程中使用线特征来进行位姿估计。右侧的是旋转误差与平移误差。</p>
-<h4 id="1-1-2-公开数据集实验"><a href="#1-1-2-公开数据集实验" class="headerlink" title="1.1.2 公开数据集实验"></a>1.1.2 公开数据集实验</h4><p>作者在EuRoC MAV数据集、PennCOSYVIO数据集上进行了实验。EuRoC数据集上的实验作者对比了ROVIO、OKVIS-Mono、VINS-Mono与PL-VIO在数据集上的旋转、平移的均方误差，给出了轨迹、建好的地图。</p>
-<p><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/MH_05线特征建图效果.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/EuRoC误差汇总.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/轨迹对比.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/EuRoC运行时间.png" alt="a"></p>
-<p>OennCOSYVIO数据集实验是EuRoC数据集实验的阉割，之对比了VINS-Mono与PL-VIO的APE与RPE，以及前后端的运算时间。</p>
-<p><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/PennAPERPE.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/Penny_time.png" alt="a"></p>
-<p>基于论文内容，可以发现，PL-VIO使用了点线特征相结合的方式来进行SLAM，在作者对比的数据序列上，PL-VIO的精度优于VIN-Mono等算法(EuRoC数据的MH_01序列没有被作者选入对比列表中)，但是在运行速度上，PL-VIO的运行速度毫无优势可言。<strong>事实上，PL-VIO的运行速度是一个致命的缺陷</strong>。</p>
-<h2 id="2-实验记录"><a href="#2-实验记录" class="headerlink" title="2. 实验记录"></a>2. 实验记录</h2><p>本周分别使用EuRoC MH_05数据序列和仿真数据进行了实验，录制了两个视频。</p>
-<p>经过实验发现，PL-VIO在本机上完全达不到实时效果，仿真数据上输出的位姿频率仅有不到0.7，在EuRoC上则不到0.3。</p>
-<h2 id="3-评估工具"><a href="#3-评估工具" class="headerlink" title="3. 评估工具"></a>3. 评估工具</h2><p>V-SLAM/VIO的评估工具可以使用evo(GitHub: <a href="https://github.com/MichaelGrupp/evo" target="_blank" rel="noopener">https://github.com/MichaelGrupp/evo</a>).</p>
-<p><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_1.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_2.png" alt="a"><br><img src="/lhopitalLKY.github.io/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/evo_3.png" alt="a"></p>
-<h2 id="4-改进点"><a href="#4-改进点" class="headerlink" title="4. 改进点"></a>4. 改进点</h2><p>经过实验之后，发现有几个可以改进的点：</p>
-<ol>
-<li>提升后端优化的运行速度(暂时没有什么思路，也许可以尝试使用PL-SLAM中的线特征后端)</li>
-<li>提升线特征提取匹配速度或精度(可以试试使用EDLines算法？)</li>
-</ol>
-<h2 id="5-初步毕业论文工作内容"><a href="#5-初步毕业论文工作内容" class="headerlink" title="5. 初步毕业论文工作内容"></a>5. 初步毕业论文工作内容</h2><p>基于PL-VIO，初步定一下论文的具体内容：</p>
-<p>第一章 研究背景<br>第二章 国内外研究现状<br>第三章 相关背景知识</p>
-<ul>
-<li>3.2 点特征</li>
-<li>3.3 线特征</li>
-<li>3.4 李群与李代数</li>
-<li>3.5 SLAM基本原理与模型</li>
-</ul>
-<p>第四章 相机位姿估计</p>
-<ul>
-<li>4.1 基于点特征的相机位姿估计<ul>
-<li>4.1.1 点特征的提取与匹配</li>
-<li>4.1.2 基于线特征的相机位姿约束</li>
-</ul>
-</li>
-<li>4.1 基于线特征的相机位姿估计<ul>
-<li>4.2.1 线特征的表示</li>
-<li>4.2.2 线特征的提取与匹配</li>
-<li>4.2.3 基于线特征的相机位姿约束</li>
-</ul>
-</li>
-<li>4.3 点线结合的视觉SLAM位姿优化模型</li>
-</ul>
-<p>第五章 点-线结合视觉SLAM(传感器方案多做几个测试确定一下，目前三种方案，结合深度学习判断深度的单目(姚立群和郭犇用这个改了一下vins)、双目、RGB-D)</p>
-<ul>
-<li>5.1 系统框架</li>
-<li>5.2 视觉特征跟踪模块<ul>
-<li>点线特征提取与匹配</li>
-<li>关键帧判断</li>
-</ul>
-</li>
-<li>5.3 初始化模块</li>
-<li>5.4 基于滑动窗口的后端优化模块</li>
-</ul>
-<p>第六章 实验与分析</p>
-<ul>
-<li>6.1 仿真实验<ul>
-<li>实验描述</li>
-<li>实验结果与分析(轨迹精度、线特征重建精度)</li>
-</ul>
-</li>
-<li>6.2 公开数据集实验<ul>
-<li>6.2.1 EuRoC MAV数据集(APE、RPE、模块运行时间)<ul>
-<li>数据集介绍</li>
-<li>实验描述(包含对比)</li>
-<li>实验分析</li>
-</ul>
-</li>
-<li>6.2.2 TUM-VI数据集(APE、RPE、模块运行时间)<ul>
-<li>同上</li>
-</ul>
-</li>
-<li>6.2.3 KITTI数据集(暂定，不知道要不要做这个数据集)<ul>
-<li>同上</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>6.3 真实环境中的实验<ul>
-<li>实验环境描述</li>
-<li>实验结果展示</li>
-</ul>
-</li>
-</ul>
-<p>第七章 总结与展望</p>
+        <p>使用一段代码来说明如何使用Python.h来在C++程序中调用Python程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//初始化python</span></span><br><span class="line"> </span><br><span class="line">	Py_Initialize();</span><br><span class="line"> </span><br><span class="line">	PyRun_SimpleString(<span class="string">"import sys"</span>);</span><br><span class="line">	PyRun_SimpleString(<span class="string">"sys.path.append('/home/lho/SLAM/lcnn')"</span>); </span><br><span class="line"> </span><br><span class="line">	<span class="comment">//定义python类型的变量</span></span><br><span class="line"> </span><br><span class="line">	PyObject *pModule = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pFunc = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pArg = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *result = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pClass = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pInstance = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pDict = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//引入模块</span></span><br><span class="line">	pModule = PyImport_ImportModule(<span class="string">"test1"</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">if</span> (!pModule)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Import Module Failed"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		system(<span class="string">"pause"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="comment">//获取模块字典属性</span></span><br><span class="line">	pDict = PyModule_GetDict(pModule);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">////直接获取模块中的函数Hello</span></span><br><span class="line">	pFunc = PyObject_GetAttrString(pModule, <span class="string">"hello"</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//参数类型转换，传递一个字符串。将c/c++类型的字符串转换为python类型，元组中的python类型查看python文档</span></span><br><span class="line">	pArg = Py_BuildValue(<span class="string">"(s)"</span>, <span class="string">"hello charity"</span>);</span><br><span class="line">	<span class="comment">// 调用直接获得的函数,并传递参数</span></span><br><span class="line">	PyEval_CallObject(pFunc, pArg);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 从字典属性中获取函数arg</span></span><br><span class="line">	pFunc = PyDict_GetItemString(pDict, <span class="string">"arg"</span>);</span><br><span class="line">	<span class="comment">// 参数类型转换,传递两个整型参数</span></span><br><span class="line">	pArg = Py_BuildValue(<span class="string">"(i, i)"</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="comment">// 调用函数,并得到 python 类型的返回值</span></span><br><span class="line">	result = PyEval_CallObject(pFunc, pArg);</span><br><span class="line">	<span class="comment">// c 用来保存 C/C++ 类型的返回值</span></span><br><span class="line">	<span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">// 将 python 类型的返回值转换为 C/C++类型</span></span><br><span class="line">	PyArg_Parse(result, <span class="string">"i"</span>, &amp;c);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a+b = "</span> &lt;&lt; c &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从字典属性中获取函数npSum</span></span><br><span class="line">    pFunc = PyDict_GetItemString(pDict, <span class="string">"npSum"</span>);</span><br><span class="line">    <span class="comment">// 执行函数</span></span><br><span class="line">    PyObject *np_result;</span><br><span class="line">    np_result = PyEval_CallObject(pFunc, <span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 通过字典属性获取模块中的类 </span></span><br><span class="line">	pClass = PyDict_GetItemString(pDict, <span class="string">"Test"</span>);</span><br><span class="line">	<span class="keyword">if</span> (!pClass)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"获取模块中的类失败"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		system(<span class="string">"pause"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 实例化获取的类</span></span><br><span class="line">	pInstance = PyInstanceMethod_New(pClass);</span><br><span class="line">	<span class="comment">//调用类的方法</span></span><br><span class="line">	result = PyObject_CallMethod(pInstance, <span class="string">"say_hello"</span>, <span class="string">"(s,s)"</span>, <span class="string">""</span>, <span class="string">"charity"</span>);</span><br><span class="line">	<span class="comment">//输出返回值</span></span><br><span class="line">	<span class="keyword">char</span>* name = <span class="literal">NULL</span>;</span><br><span class="line">	PyArg_Parse(result, <span class="string">"s"</span>, &amp;name);   <span class="comment">//这个函数的第二个参数相当扯淡，具体看下文的英文，类型使用字符来表示的，例如“s”代表 str "i" 代表int，个人感觉相当扯淡</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, name);</span><br><span class="line">	PyRun_SimpleString(<span class="string">"print('python end')"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 释放python</span></span><br><span class="line">	Py_Finalize();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>python模块内容如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(s)</span>:</span></span><br><span class="line">    print(<span class="string">"hello world"</span>)</span><br><span class="line">    print(s)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">arg</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    print(<span class="string">'a='</span>, a)</span><br><span class="line">    print(<span class="string">'b='</span>, b)</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">npSum</span><span class="params">()</span>:</span></span><br><span class="line">    a1 = np.array([<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>])</span><br><span class="line">    b1 = np.array([<span class="number">3.</span>, <span class="number">4.</span>, <span class="number">5.</span>])</span><br><span class="line"></span><br><span class="line">    print(a1 + b1)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a1 + b1</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"init"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hello</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        print(<span class="string">"hello"</span>, name)</span><br><span class="line">        <span class="keyword">return</span> name</span><br></pre></td></tr></table></figure></p>
+<p>特别要注意，python脚本不能以test命名，这样会导致无法找到函数</p>
 
       
 
@@ -306,15 +212,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">SLAM</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">VINS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">实验记录</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python-base</a>
         		</li>
       		
 		</ul>
@@ -370,7 +268,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/05/29/PL-VIO%E5%AE%9E%E9%AA%8C%E8%AE%B0%E5%BD%95/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/06/30/C-%E8%B0%83%E7%94%A8Python/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -384,18 +282,9 @@
   
 <nav id="article-nav">
   
-    <a href="/lhopitalLKY.github.io/2020/06/22/%E5%8A%A8%E6%80%81%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E7%94%B5%E8%B7%AF%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%9F%BA%E5%B0%94%E9%9C%8D%E5%A4%AB%E5%AE%9A%E5%BE%8B/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          动态系统建模与分析——电路系统建模与基尔霍夫定律
-        
-      </div>
-    </a>
   
-  
-    <a href="/lhopitalLKY.github.io/2020/05/26/%E7%BA%BF%E6%AE%B5%E7%9B%B4%E7%BA%BF%E4%BA%A4%E7%82%B9%E5%AE%9E%E9%AA%8C/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">线段直线交点实验</div>
+    <a href="/lhopitalLKY.github.io/2020/06/22/%E5%8A%A8%E6%80%81%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E7%94%B5%E8%B7%AF%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%9F%BA%E5%B0%94%E9%9C%8D%E5%A4%AB%E5%AE%9A%E5%BE%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">动态系统建模与分析——电路系统建模与基尔霍夫定律</div>
       <i class="icon-circle-right"></i>
     </a>
   

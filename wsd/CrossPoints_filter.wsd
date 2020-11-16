@@ -1,21 +1,11 @@
 @startuml
-(*) --> "输入KeyLines line_1, line_2"
---> "计算line_1与line_2的直线角度angle_1与angle_2"
-if "angle_1与angle_2之间的角度差小于π/24" 
-    --> [true] "计算line_1与line_2所代表的直线的交点P"
-    --> "计算P与line_1端点、line_2端点之间的距离"
-    --> "选取P与四个端点之间的最小距离dist_min"
-    if "dist_min <= MIN_DIST_THRESHOLD"
-        --> [true] "返回交点"
-        --> [Ending process] (*)
-    else 
-        -left-> [false] "返回异常点"
-    endif
-    --> [Ending process] (*)
-else 
-    --> [false] "返回异常点"
-    --> [Ending process] (*)
-endif
-
-
+title act_new_6
+start
+:打开文件;
+while (检查文件大小 ?) is (有内容)
+    :读取文件;
+    :编译 dia;
+endwhile (空)
+:关闭文件;
+end
 @enduml

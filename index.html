@@ -151,6 +151,166 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-C-调用Python" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/lhopitalLKY.github.io/2020/06/30/C-%E8%B0%83%E7%94%A8Python/">C++调用Python</a>
+    </h1>
+  
+
+        
+        <a href="/lhopitalLKY.github.io/2020/06/30/C-%E8%B0%83%E7%94%A8Python/" class="archive-article-date">
+  	<time datetime="2020-06-30T02:46:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用一段代码来说明如何使用Python.h来在C++程序中调用Python程序</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>* argv[])</span></span></span><br><span class="line"><span class="function"> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//初始化python</span></span><br><span class="line"> </span><br><span class="line">	Py_Initialize();</span><br><span class="line"> </span><br><span class="line">	PyRun_SimpleString(<span class="string">"import sys"</span>);</span><br><span class="line">	PyRun_SimpleString(<span class="string">"sys.path.append('/home/lho/SLAM/lcnn')"</span>); </span><br><span class="line"> </span><br><span class="line">	<span class="comment">//定义python类型的变量</span></span><br><span class="line"> </span><br><span class="line">	PyObject *pModule = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pFunc = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pArg = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *result = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pClass = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pInstance = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	PyObject *pDict = <span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//引入模块</span></span><br><span class="line">	pModule = PyImport_ImportModule(<span class="string">"test1"</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="keyword">if</span> (!pModule)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"Import Module Failed"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		system(<span class="string">"pause"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">	<span class="comment">//获取模块字典属性</span></span><br><span class="line">	pDict = PyModule_GetDict(pModule);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">////直接获取模块中的函数Hello</span></span><br><span class="line">	pFunc = PyObject_GetAttrString(pModule, <span class="string">"hello"</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">//参数类型转换，传递一个字符串。将c/c++类型的字符串转换为python类型，元组中的python类型查看python文档</span></span><br><span class="line">	pArg = Py_BuildValue(<span class="string">"(s)"</span>, <span class="string">"hello charity"</span>);</span><br><span class="line">	<span class="comment">// 调用直接获得的函数,并传递参数</span></span><br><span class="line">	PyEval_CallObject(pFunc, pArg);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 从字典属性中获取函数arg</span></span><br><span class="line">	pFunc = PyDict_GetItemString(pDict, <span class="string">"arg"</span>);</span><br><span class="line">	<span class="comment">// 参数类型转换,传递两个整型参数</span></span><br><span class="line">	pArg = Py_BuildValue(<span class="string">"(i, i)"</span>, <span class="number">1</span>, <span class="number">2</span>);</span><br><span class="line">	<span class="comment">// 调用函数,并得到 python 类型的返回值</span></span><br><span class="line">	result = PyEval_CallObject(pFunc, pArg);</span><br><span class="line">	<span class="comment">// c 用来保存 C/C++ 类型的返回值</span></span><br><span class="line">	<span class="keyword">int</span> c = <span class="number">0</span>;</span><br><span class="line">	<span class="comment">// 将 python 类型的返回值转换为 C/C++类型</span></span><br><span class="line">	PyArg_Parse(result, <span class="string">"i"</span>, &amp;c);</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a+b = "</span> &lt;&lt; c &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从字典属性中获取函数npSum</span></span><br><span class="line">    pFunc = PyDict_GetItemString(pDict, <span class="string">"npSum"</span>);</span><br><span class="line">    <span class="comment">// 执行函数</span></span><br><span class="line">    PyObject *np_result;</span><br><span class="line">    np_result = PyEval_CallObject(pFunc, <span class="literal">NULL</span>);</span><br><span class="line"> </span><br><span class="line">	<span class="comment">// 通过字典属性获取模块中的类 </span></span><br><span class="line">	pClass = PyDict_GetItemString(pDict, <span class="string">"Test"</span>);</span><br><span class="line">	<span class="keyword">if</span> (!pClass)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"获取模块中的类失败"</span> &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">		system(<span class="string">"pause"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">// 实例化获取的类</span></span><br><span class="line">	pInstance = PyInstanceMethod_New(pClass);</span><br><span class="line">	<span class="comment">//调用类的方法</span></span><br><span class="line">	result = PyObject_CallMethod(pInstance, <span class="string">"say_hello"</span>, <span class="string">"(s,s)"</span>, <span class="string">""</span>, <span class="string">"charity"</span>);</span><br><span class="line">	<span class="comment">//输出返回值</span></span><br><span class="line">	<span class="keyword">char</span>* name = <span class="literal">NULL</span>;</span><br><span class="line">	PyArg_Parse(result, <span class="string">"s"</span>, &amp;name);   <span class="comment">//这个函数的第二个参数相当扯淡，具体看下文的英文，类型使用字符来表示的，例如“s”代表 str "i" 代表int，个人感觉相当扯淡</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%s\n"</span>, name);</span><br><span class="line">	PyRun_SimpleString(<span class="string">"print('python end')"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 释放python</span></span><br><span class="line">	Py_Finalize();</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>python模块内容如下：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">hello</span><span class="params">(s)</span>:</span></span><br><span class="line">    print(<span class="string">"hello world"</span>)</span><br><span class="line">    print(s)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">arg</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    print(<span class="string">'a='</span>, a)</span><br><span class="line">    print(<span class="string">'b='</span>, b)</span><br><span class="line">    <span class="keyword">return</span> a + b</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">npSum</span><span class="params">()</span>:</span></span><br><span class="line">    a1 = np.array([<span class="number">1.</span>, <span class="number">2.</span>, <span class="number">3.</span>])</span><br><span class="line">    b1 = np.array([<span class="number">3.</span>, <span class="number">4.</span>, <span class="number">5.</span>])</span><br><span class="line"></span><br><span class="line">    print(a1 + b1)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> a1 + b1</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        print(<span class="string">"init"</span>)</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">say_hello</span><span class="params">(self, name)</span>:</span></span><br><span class="line">        print(<span class="string">"hello"</span>, name)</span><br><span class="line">        <span class="keyword">return</span> name</span><br></pre></td></tr></table></figure></p>
+<p>特别要注意，python脚本不能以test命名，这样会导致无法找到函数</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python-base</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/lhopitalLKY.github.io/2020/06/30/C-%E8%B0%83%E7%94%A8Python/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-动态系统建模与分析——电路系统建模与基尔霍夫定律" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/lhopitalLKY.github.io/2020/06/22/%E5%8A%A8%E6%80%81%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E7%94%B5%E8%B7%AF%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%9F%BA%E5%B0%94%E9%9C%8D%E5%A4%AB%E5%AE%9A%E5%BE%8B/">动态系统建模与分析——电路系统建模与基尔霍夫定律</a>
+    </h1>
+  
+
+        
+        <a href="/lhopitalLKY.github.io/2020/06/22/%E5%8A%A8%E6%80%81%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E7%94%B5%E8%B7%AF%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%9F%BA%E5%B0%94%E9%9C%8D%E5%A4%AB%E5%AE%9A%E5%BE%8B/" class="archive-article-date">
+  	<time datetime="2020-06-22T04:10:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-06-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="电路基本原件与基本物理量"><a href="#电路基本原件与基本物理量" class="headerlink" title="电路基本原件与基本物理量"></a>电路基本原件与基本物理量</h2><h3 id="电量-库伦-C-q"><a href="#电量-库伦-C-q" class="headerlink" title="电量 库伦(C) q"></a>电量 库伦(C) q</h3><h3 id="电流-安培-A-i"><a href="#电流-安培-A-i" class="headerlink" title="电流 安培(A) i"></a>电流 安培(A) i</h3><script type="math/tex; mode=display">i = \frac{dq}{dt}</script><h3 id="电压-伏特-V-e"><a href="#电压-伏特-V-e" class="headerlink" title="电压 伏特(V) e"></a>电压 伏特(V) e</h3><p>两个图</p>
+<h3 id="电阻-欧姆-Omega-R"><a href="#电阻-欧姆-Omega-R" class="headerlink" title="电阻 欧姆($\Omega$) R"></a>电阻 欧姆($\Omega$) R</h3><p>欧姆定律：</p>
+<script type="math/tex; mode=display">e_R = iR</script><h3 id="电容-法拉-F-c"><a href="#电容-法拉-F-c" class="headerlink" title="电容 法拉(F) c"></a>电容 法拉(F) c</h3><script type="math/tex; mode=display">q = ce_c</script><script type="math/tex; mode=display">e_c = \frac{1}{c}q = \frac{1}{c}\int_{0}^{t} i \mathrm{d}t</script><h3 id><a href="#" class="headerlink" title=" "></a> </h3>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">自动控制原理</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">动态系统建模</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">电路</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/lhopitalLKY.github.io/2020/06/22/%E5%8A%A8%E6%80%81%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%88%86%E6%9E%90%E2%80%94%E2%80%94%E7%94%B5%E8%B7%AF%E7%B3%BB%E7%BB%9F%E5%BB%BA%E6%A8%A1%E4%B8%8E%E5%9F%BA%E5%B0%94%E9%9C%8D%E5%A4%AB%E5%AE%9A%E5%BE%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-PL-VIO实验记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -380,6 +540,7 @@
 <ol>
 <li>尝试一下结合深度来判定交点</li>
 </ol>
+<p>PL-VIO中直线特征跟踪的流程<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">@startuml</span><br><span class="line"></span><br><span class="line">start</span><br><span class="line">:直方图均衡化;</span><br><span class="line">:设置first_img为false;</span><br><span class="line"></span><br><span class="line">if(forwframe是否为空?) then (是)</span><br><span class="line">    :设置forwframe与curframe为new FrameLines;</span><br><span class="line">    :设置forwframe与curframe为当前img;</span><br><span class="line">    :设置first_img为true;</span><br><span class="line">else (否)</span><br><span class="line">    :设置forwframe为new FrameLines;</span><br><span class="line">    :设置forwframe为当前img;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">:提取线特征;</span><br><span class="line">:筛选octave&#x3D;0, length&gt;&#x3D;30的线特征作为forwframe的keylsd;</span><br><span class="line">:设置forwframe中的keylsd的id为-1;</span><br><span class="line">:匹配forwframe与curframe的线特征;</span><br><span class="line">:筛选匹配(条件: 描述子的距离小于某个阈值且直线跑的不太远);</span><br><span class="line">:利用curframe来设置forwframe中被匹配到的线特征的id;</span><br><span class="line"></span><br><span class="line">repeat</span><br><span class="line">    if(forwframe -&gt; lineID[i] &#x3D;&#x3D; -1) then (是)</span><br><span class="line">        :设置forwframe -&gt; lineID[i]为allfreature_cnt++;</span><br><span class="line">        :将forwframe -&gt; keylsd[i]插入vecLine_new等队列中;</span><br><span class="line">    else (否)</span><br><span class="line">        :将forwframe -&gt; keylsd[i]插入vevLine_tracked等队列中;</span><br><span class="line">    endif</span><br><span class="line">    :i++;</span><br><span class="line">repeat while(i &lt; forwframe -&gt; keylsd.size())</span><br><span class="line"></span><br><span class="line">if(被追踪到的线特征小于50条) then (是)</span><br><span class="line">    :从vecLine_new中补充线特征到vecLine_tracked;</span><br><span class="line">endif</span><br><span class="line"></span><br><span class="line">:forwframe -&gt; keylsd &#x3D; vecLine_tracked;</span><br><span class="line">:forwframe -&gt; lineID &#x3D; lineID_tracked;</span><br><span class="line">:forwframe -&gt; lbd_descr &#x3D; DEscr_tracked;</span><br><span class="line">:将opencv格式的KeyLine转为自定义的Line结构,插入forwframe -&gt; vecLine中;</span><br><span class="line"></span><br><span class="line">:curframe &#x3D; forwframe;</span><br><span class="line"></span><br><span class="line">stop</span><br><span class="line"></span><br><span class="line">@enduml</span><br></pre></td></tr></table></figure></p>
 
       
 
@@ -829,6 +990,22 @@ MathJax.Hub.Queue(function() {
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">实验记录</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">python-base</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">自动控制原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">动态系统建模</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">电路</a>
               </li>
             
             <div class="clearfix"></div>
